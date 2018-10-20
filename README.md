@@ -16,3 +16,5 @@ expected feedback: "Project is running at localhost:8081 webpack output is serve
 $ pip install Django
 $ ls django_server
 $ python .\manage.py runserver
+
+$ pip install djangorestframework
