@@ -19,5 +19,5 @@ from PDF_Reader import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', views.upload_pdf, name='upload_pdf')
+    #url(r'^$', views.upload_pdf, name='upload_pdf')
 ]
