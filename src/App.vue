@@ -3,6 +3,8 @@
   <div v-if="welcome">
 
     <!--<v-btn @click="welcome=false">Click this ho </v-btn>-->
+    <my-button type="Click here to push Meera's buttons" @click="toggleLable">{{label}}</my-button>
+
 
   </div>
 
@@ -80,7 +82,7 @@ export default {
            image: false,
          },
         ],
-        welcome: false,
+        welcome: true,
       }
     },
     computed: {
@@ -98,6 +100,15 @@ export default {
       }
     },
     methods: {
+      toggleLable: function(e) {
+      console.log(e.target.tagName);
+      if (this.label == "Click here to push Meera's buttons") {
+        this.label = "Meera's buttons are pushed, oh boi";
+      } else {
+        this.label = "Click here to push Meera's buttons";
+      }
+      //console.log(this.label);
+    },
       reset() {
         // reset form to initial state
         this.currentStatus = STATUS_INITIAL;
