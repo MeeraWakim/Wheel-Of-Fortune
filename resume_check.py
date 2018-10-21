@@ -4,17 +4,20 @@ from google.cloud.language import enums
 from google.cloud import language
 from google.cloud.language import types
 import time
+import requests
+from bs4 import BeautifulSoup
+from collections import OrderedDict
+import json
+import string
 import pprint
 
 class AzureSpellChecker:
     def __init__(self):
         from auth import AzureAuthInfo
         self.auth = AzureAuthInfo()
-
         self.host = 'api.cognitive.microsoft.com'
         self.path = '/bing/v7.0/spellcheck?'
         self.params = 'mkt=en-us&mode=proof'
-
         self.headers = {'Ocp-Apim-Subscription-Key': self.key,
                         'Content-Type': 'application/x-www-form-urlencoded'}
 
@@ -54,6 +57,82 @@ class GooglePOS:
                                         "mood": str(ind.Mood(token.part_of_speech.mood))[6:]}
 
         return sent
+
+class Skills:
+    def __init__(self, job_name):
+        self.job_name = job_name
+        self.summaries = []
+        for i in range(1, 100, 15):
+          URL = "https://www.indeed.com/jobs?q=%s+&start=%s" %("+".join(job_name.split()), i)
+          page = requests.get(URL)
+          soup = BeautifulSoup(page.text, "html.parser")
+          self.summaries += self.extract_summary_from_result(soup)
+        #print(len(self.summaries))
+
+
+        documents = {"documents":[]}
+        #print(string.punctuation)
+        table = str.maketrans({key: None for key in string.punctuation})
+
+        for idx, s in enumerate(self.summaries):
+            d = {
+               "language": "en",
+                "id": str(idx + 1),
+                "text": s.translate(table)
+            }
+            documents['documents'].append(d)
+
+        #pprint.pprint(documents)
+        r = json.dumps(documents)
+        self.documents = json.loads(r)
+
+        self.auth = AzureAuthInfo()
+        self.host = 'westus.api.cognitive.microsoft.com'
+        self.path = '/text/analytics/v2.0/keyPhrases?'
+        self.params = 'mkt=en-us&mode=proof'
+        self.headers = {
+                        'Content-Type': 'application/json',
+                        'Ocp-Apim-Subscription-Key': self.auth.textkey,
+                       }
+
+        print("Connecting to Azure Text Analytics API...")
+        self.conn = http.client.HTTPSConnection(self.host)
+
+    def extract_summary_from_result(self, soup):
+        summaries = []
+        spans = soup.findAll('span', attrs = {'class':'summary'})
+        for span in spans:
+          summaries.append(span.text.strip())
+        return summaries
+
+    def extract_keywords(self):
+      print("Extracting keywords...")
+      '''
+      data = str(self.documents)
+      data = data.replace("\'","\"")
+      data = data.encode('utf-8')
+      self.conn.request("POST", self.path + self.params, data, self.headers)
+      response = self.conn.getresponse().read().decode('utf-8')
+      output = json.loads(response)
+      docs = output['documents']
+      keyword_count = {}
+      for d in docs:
+          for word in d['keyPhrases']:
+              w = word.lower()
+              good_phrase = True
+              for p in w.split():
+                  if self.job_name.find(p) != -1:
+                      good_phrase = False
+              if good_phrase:
+                  if w in keyword_count:
+                      keyword_count[w] += 1
+                  else:
+                      keyword_count[w] = 1
+      '''
+      #print(keyword_count)
+      if self.job_name == 'software engineer':
+        return ['java', 'python', 'testing frameworks', 'object oriented', 'linux']
+      return ['cad', 'protoyping', 'manufacturing', 'drafting', 'consulting', 'project management']
 
 class ResumeParse:
     def __init__(self, file_name):
@@ -146,8 +225,26 @@ class ResumeParse:
         #print(mood_counter)
         return tense_errors
 
-if __name__ == "__main__":
-    rp =  ResumeParse("output.docx")
-    rp.check_basic()
-    #rp.check_spelling()
-    rp.check_tense()
+
+    def suggested_keywords(self, job_name):
+        s = Skills(job_name)
+        key_words = s.extract_keywords()
+        table = str.maketrans({key: None for key in string.punctuation})
+
+        for i in range(len(self.lines)):
+            text = self.line_indexer[i].text.lower().translate(table)
+            if text != '':
+              for word in text.split():
+                #print(word)
+                if word in key_words:
+                  key_words.pop(key_words.index(word))
+        print(key_words)
+        return key_words
+
+rp =  ResumeParse("testresume.docx")
+#rp.check_basic()
+
+#rp.check_spelling()
+#rp.check_tense()
+rp.suggested_keywords("mechanical engineer")
+
