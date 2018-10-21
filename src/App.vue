@@ -1,5 +1,12 @@
 <template>
   <v-app>
+  <div v-if="welcome">
+
+    <!--<v-btn @click="welcome=false">Click this ho </v-btn>-->
+
+  </div>
+
+  <div v-else-if="!welcome">
     <v-toolbar> hello </v-toolbar>
      <v-container grid-list-md text-xs-center>
             <v-layout row wrap>
@@ -52,10 +59,12 @@
                 </v-flex xs6>
             </v-layout>
         </v-container>
+    </div>
   </v-app>
 </template>
 
 <script>
+
 export default {
   name: 'app',
   data () {
@@ -65,6 +74,7 @@ export default {
          image: false,
        },
       ],
+      welcome: true,
     }
   },
 };
