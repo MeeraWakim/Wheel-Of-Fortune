@@ -29,7 +29,7 @@ def read_file():
         file_output = {"basic": rp.check_basic(), "spelling": rp.check_spelling, "tense": rp.check_tense} #The Tense return of the resume_checker
         return jsonify(file_output)
     else:
-        print "Bad method:", request.method
+        print("Bad method:", request.method)
         return 'Bad'
 
 

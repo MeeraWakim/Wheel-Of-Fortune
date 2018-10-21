@@ -1,105 +1,79 @@
 <template>
-  <v-app> 
-<!--CODEPEN START-->
-<div id="app">
-    <v-app >
-    <main>
-      <section>
-        <v-parallax src="https://raw.githubusercontent.com/vwxyzjn/vuetify-parallax-starter2/master/src/assets/background3.jpg" height="380">
-          <v-layout column align-center justify-center>
-            <h2 id="title1" class="display-3"> <strong>Welcome to Doorbell</strong></h2>
-            <div id="title1" class="display-1">Your future is at the door.</div>
-            <v-btn light v-scroll-to="'#element'" large class="teal lighten-2 white--text" href="https://github.com/vwxyzjn/vuetify-parallax-starter">Get Started</v-btn>
-          </v-layout>
-        </v-parallax>
+  <v-app>
+    <div v-if="!fileHasBeenUploaded">
+        <!--CODEPEN START-->
+        <div id="app">
+            <v-app >
+            <main>
+              <section>
+                <v-parallax src="https://raw.githubusercontent.com/vwxyzjn/vuetify-parallax-starter2/master/src/assets/background3.jpg" height="380">
+                  <v-layout column align-center justify-center>
+                    <h2 id="title1" class="display-3"> <strong>Welcome to Doorbell</strong></h2>
+                    <div id="title1" class="display-1">Your future is at the door.</div>
+                    <v-btn light v-scroll-to="'#element'" large color="grey" href="https://github.com/vwxyzjn/vuetify-parallax-starter">Get Started</v-btn>
+                  </v-layout>
+                </v-parallax>
 
-        <div id="content">
-          <v-layout row wrap class="my-5" >
-            <v-flex xs12 sm4>
-              <v-card color= "rgba(255, 0, 0, 0)" class="elevation-0">
-                <v-card-media height="45px" class="text-xs-center">
-                  <v-icon x-large class="brown--text">flash_on</v-icon>
-                </v-card-media>
-                <v-card-title primary-title>
-                  <div class="headline text-xs-center" style="width:100%">Speeds up development</div>
-                </v-card-title>
-                <v-card-text>
-                  We did most of the heavy lifting for you to provide
-                  a default stylings that incorporate our custom components.
-                  Additionally, we refined animations and transitions to 
-                  provide a smoother experience for developers.
-                </v-card-text>
-              </v-card>
-            </v-flex>
+                <div id="content">
+                  <v-layout row wrap class="my-5" >
+                    <v-flex xs12 sm4>
+                      <v-card color= "rgba(255, 0, 0, 0)" class="elevation-0">
+                        <v-card-media height="45px" class="text-xs-center">
+                          <v-icon x-large class="teal--text">flash_on</v-icon>
+                        </v-card-media>
+                        <v-card-title primary-title>
+                          <div class="headline text-xs-center" style="width:100%">Accelerate your career</div>
+                        </v-card-title>
+                        <v-card-text>
+                          Our innovative system allows you to drastically change the way people view your professional experience. For many, years or even decades of experience are ultimately summarized by your resume, so why wouldn’t you put your best foot forward? Our system ensures that you get the feedback necessary to bring your professional presentation to the next level, removing any grammatical blemish holding you back and expressing key skills that will take you forward.
+                        </v-card-text>
+                      </v-card>
+                    </v-flex>
 
-            <v-flex xs12 sm4>
-              <v-card color= "rgba(255, 0, 0, 0)" class="elevation-0">
-                <v-card-media height="45px" class="text-xs-center">
-                  <v-icon x-large class="brown--text">group</v-icon>
-                </v-card-media>
-                <v-card-title primary-title>
-                  <div class="headline text-xs-center" style="width:100%">User Experience Focused</div>
-                </v-card-title>
-                <v-card-text>
-                  By utilizing elements and principles of Material Design, 
-                  we were able to create a framework that incorporates components
-                  and animations that provide more feedback to users. Additionally,
-                  a single underlying responsive system across all platforms allow
-                  for a more unified user experience.
-                </v-card-text>
-              </v-card>
-            </v-flex>
+                    <v-flex xs12 sm4>
+                      <v-card color= "rgba(255, 0, 0, 0)" class="elevation-0">
+                        <v-card-media height="45px" class="text-xs-center">
+                          <v-icon x-large class="teal--text">group</v-icon>
+                        </v-card-media>
+                        <v-card-title primary-title>
+                          <div class="headline text-xs-center" style="width:100%">Easy to use</div>
+                        </v-card-title>
+                        <v-card-text>
+                          We offer easy-to-use services that maximize the appeal of your resume while minimizing stress for you. No matter your background, the barrier between you and your best resume is only ever a click of a button. We in ensure efficient and straightforward feedback so that you will have have the opportunity to present your professional self how you always imagined. 
+                        </v-card-text>
+                      </v-card>
+                    </v-flex>
 
-            <v-flex xs12 sm4>
-              <v-card color= "rgba(255, 0, 0, 0)" class="elevation-0">
-                <v-card-media height="45px" class="text-xs-center">
-                  <v-icon x-large class="brown--text">settings</v-icon>
-                </v-card-media>
-                <v-card-title primary-title>
-                  <div class="headline text-xs-center" style="width:100%">Easy to work with</div>
-                </v-card-title>
-                <v-card-text>
-                  We have provided detailed documentation as well as specific code
-                  examples to help new users get started. We are also always open 
-                  to feedback and can answer any questions a user may have about 
-                  Materialize.
-                </v-card-text>
-              </v-card>
-            </v-flex>
-          </v-layout>
+                    <v-flex xs12 sm4>
+                      <v-card color= "rgba(255, 0, 0, 0)" class="elevation-0">
+                        <v-card-media height="45px" class="text-xs-center">
+                          <v-icon x-large class="teal--text">settings</v-icon>
+                        </v-card-media>
+                        <v-card-title primary-title>
+                          <div class="headline text-xs-center" style="width:100%">Feature rich</div>
+                        </v-card-title>
+                        <v-card-text>
+                          We offer a rich suite of features, each designed to optimize your return on your resumé. Some of these include grammatical verification and key word suggestion to bypass early-stage automated filtering and catch the eye of a potential employers. We consider every detail, so you don’t have to.
+                        </v-card-text>
+                      </v-card>
+                    </v-flex>
+                  </v-layout>
+                </div>
+              </section>
+
+              <section>
+                <v-parallax src="http://360gigapixels.com/assets/images/nyc_side_thumb.png" height="380">
+                  <v-layout column align-center justify-center>
+                    
+                  </v-layout>
+                </v-parallax>
+              </section>
+            </main>
+          </v-app>
         </div>
-      </section>
-
-      <section>
-        <v-parallax src="http://360gigapixels.com/assets/images/nyc_side_thumb.png" height="380">
-          <v-layout column align-center justify-center>
-            
-          </v-layout>
-        </v-parallax>
-      </section>
-    </main>
-  </v-app>
-</div>
-<!--CODEPEN END-->
-
-    <!--<div class="containerr">
-      <img
-        src="./landscape.jpg"
-        style = "width:100%"
-      ></img>
-    </div>
-    <h1 class="display-4">Welcome to Doorbell </h1>
-    <img class="imageoverlay" align-center src="./assets/Doorbell.png"/>-->
-
-  <div v-if="welcome">
-    <!--<v-btn @click="welcome=false">Click this ho </v-btn>-->
-  </div>
-
-  <div v-else-if="!welcome">
-     <v-container grid-list-md text-xs-center>
+        <!--CODEPEN END-->
+        <v-container grid-list-md text-xs-center>
             <!--RESUME UPLOAD BEGINS-->
-            <div v-for="item in items">
-                <div v-if="!item.image">
                   <v-layout column wrap align-center>
                     <v-flex x12 sm3>
                         <h3 id="element" class="display-2">Upload Your Resume Here</h3>
@@ -112,68 +86,113 @@
                         <div class="file-select">
                           <div class="file-select-button" id="fileName">Choose File</div>
                           <div class="file-select-name" id="noFile">No file chosen...</div>                                   
-                            <input type="file" name="chooseFile" id="chooseFile" accept=".docx" @change="onFileChange($event), fileUploaded(item, $event)">
+                            <input type="file" name="chooseFile" id="chooseFile" accept=".docx" @change="onFileChange($event)">
                         </div>
                         </div>
                     </v-flex>
-                  </v-layout>
-                </div>
 
-                <div v-else>
-                  <v-layout column>
-                      <v-flex x12 sm3>
-                      <img id="displayedPic" :src="item.image" />
-                      </v-flex>
-                      <v-flex x12 sm3>
-                      <v-btn color="primary" @click="removeImage(item),emitGlobalClickEvent()">Choose Another Image</v-btn>
-                      </v-flex>
                   </v-layout>
-                </div>
-            </div>                      
             <!--RESUME UPLOAD ENDS-->
-
         </v-container>
-    </div>
     </body>
+    </div>
+
+    <div v-else-if="fileHasBeenUploaded">
+
+      <v-layout row wrap>
+      <div>
+        
+        <v-layout justify-left column wrap>
+        <div class="text-md-left">
+        <h2>HIGHLIGHT LEGEND:</h2>
+        <div>
+            <v-chip large color="indigo" text-color="white">
+            Capitalization
+                <v-icon right>keyboard_capslock</v-icon>
+            </v-chip>
+            <v-text>The first letter of every sentence should be capitalized</v-text>
+          </div>
+          
+          <div>
+            <v-chip color="green" text-color="white">
+              Periods
+              <v-icon right>scatter_plot</v-icon>
+            </v-chip>
+            <v-text>Inconsistency amongs period use across sentences</v-text>
+          </div>
+
+          <div>
+            <v-chip color="pink" text-color="white">
+              Spell Check
+              <v-icon right>spellcheck</v-icon>
+            </v-chip>
+            <v-text>Microsoft Azure identified spelling errors</v-text>
+          </div>
+
+          <div>
+            <v-chip color="yellow" text-color="white">
+              Verb Tense
+              <v-icon right>access_time</v-icon>
+            </v-chip>
+            <v-text>Google Cloud Natural Language present tense inconsistencies</v-text>
+          </div>
+          
+        </div>
+        <div>
+          <v-card width="30%">
+            <v-card-title>Relevant Keywords</v-card-title>
+            <v-card-text>Based on your perspective field, we've compiled some common keywords that employers in this space look for. These are not currently in your resume, so if you have any relevant experience with these topics consider adding them.</v-card-text>
+          </v-card>
+        </div>
+
+        </v-layout>
+        </div>
+
+
+        </v-layout>
+      <pdf 
+        src="https://cdn.mozilla.net/pdfjs/tracemonkey.pdf"
+        @num-pages="pageCount = $event"
+        @page-loaded="currentPage = $event"
+      ></pdf>
+    </div>
   </v-app>
 </template>
 
 <script>
 import { upload } from './file-upload.service';
+import pdf from 'vue-pdf'
 import * as axios from 'axios';
 
 export default {
     name: 'app',
+    components: {
+      pdf
+    },
     data() {
       return {
         uploadedFiles: [],
         uploadError: null,
         currentStatus: null,
         uploadFieldName: 'photos',
-        items: [
-         {
-           image: false,
-         },
-        ],
-        welcome: false,
-        label:"click here to push meera's buttons",
+        fileHasBeenUploaded: false,
+        currentPage: 0,
+        pageCount: 0,
+        
       }
     },
 
 
     methods: {
-    fileUploaded(item, e) {
-      this.imageChosen = true;
-      var files = e.target.files || e.dataTransfer.files;
-      if (!files.length)
-        return;
-      this.createImage(item, files[0]);
-    },
+
     reset(){
 
     },
     onFileChange(event){
-        let data = new FormData();
+        console.log("onefilechangeran");
+        this.fileHasBeenUploaded = true;
+
+       /* let data = new FormData();
         let file = event.target.files[0];
 
         data.append('name', 'my-file')
@@ -183,7 +202,7 @@ export default {
            'Content-Type' : 'multipart/form-data'
          }
         }
-        upload(data)
+        upload(data)*/
 
     }
     },
