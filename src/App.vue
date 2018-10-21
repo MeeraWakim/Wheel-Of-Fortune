@@ -87,16 +87,11 @@ export default {
            image: false,
          },
         ],
-        welcome: true,
-      }
-    },
-    computed: {
         welcome: false,
-        info:null,
-        label:"click here to push meera's buttons"
-
+        label:"click here to push meera's buttons",
       }
     },
+
 
     methods: {
     reset(){
@@ -125,7 +120,7 @@ export default {
         this.label = "click here to push meera's buttons";
       }
     },
-    },
+    
 };
 
 </script>
