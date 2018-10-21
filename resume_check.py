@@ -44,8 +44,8 @@ class GooglePOS:
 
         ind = enums.PartOfSpeech
         sent = {}
-        print(tokens[0])
-        print()
+        #print(tokens[0])
+        #print()
         for token in tokens:
             sent[token.text.content] = {"pos":str(ind.Tag(token.part_of_speech.tag))[4:],
                                         "tense":str(ind.Tense(token.part_of_speech.tense))[6:],
@@ -122,25 +122,28 @@ class ResumeParse:
         # List of dictionaries  with sent_index, word_index, suggestion as keys
         incorrect_words = []
         pos_tagger = GooglePOS()
-        sents = []
+        tense_errors = []
         count_tenses = {}
         for i in range(len(self.lines)):
             text = self.line_indexer[i].text
             if text != '':
+                print(text)
                 pos = pos_tagger.tag(text)
                 for word in pos:
+                    #print(pos[word]['pos'])
                     if pos[word]['pos'] == 'VERB':
-                        if pos[word]['tense'] == 'TENSE_UNKNOWN':
-                            print(word.text.content)
-                        if pos[word]['tense'] in count_tenses:
-                            count_tenses[pos[word]['tense']] += 1
-                        else:
-                            count_tenses[pos[word]['tense']] = 1
-        print(count_tenses)
+                        #print("VERB:", word, ";", "TENSE:", pos[word]['tense'])
+                        if pos[word]['tense'] == 'PAST':
+                            split_text = text.split()
+                            #print(split_text)
+                            tense_errors.append({"index":i,
+                                          "text":text,
+                                          "word_index":split_text.index(word)})
+        print(tense_errors)
 
 rp =  ResumeParse("testresume.docx")
 #rp.check_basic()
 #rp.check_spelling()
-rp.check_tense()
+#rp.check_tense()
 #google = GooglePOS()
 #pprint.pprint(google.tag("I went to the store to get food and eat"))
