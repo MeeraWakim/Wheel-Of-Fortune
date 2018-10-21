@@ -1,5 +1,12 @@
 <template>
   <v-app>
+  <div v-if="welcome">
+
+    <!--<v-btn @click="welcome=false">Click this ho </v-btn>-->
+
+  </div>
+
+  <div v-else-if="!welcome">
     <v-toolbar> hello </v-toolbar>
      <v-container grid-list-md text-xs-center>
             <v-layout row wrap>
@@ -22,8 +29,13 @@
                                   <div class="file-upload">
                                   <div class="file-select">
                                       <div class="file-select-button" id="fileName">Choose File</div>
+<<<<<<< HEAD
                                       <div class="file-select-name" id="noFile">No file chosen...</div>
                                       <input type="file" name="chooseFile" id="chooseFile" accept="image/*" @change="onFileChange(item, $event), emitGlobalClickEvent()">
+=======
+                                      <div class="file-select-name" id="noFile">No file chosen...</div> 
+                                      <input type="file" name="chooseFile" id="chooseFile" accept=".docx" @change="onFileChange(item, $event), emitGlobalClickEvent()">
+>>>>>>> c13d7220562e44e273734f924d1e0b69ed76c665
                                   </div>
                                   </div>
                               </v-flex>
@@ -52,12 +64,16 @@
                 </v-flex xs6>
             </v-layout>
         </v-container>
+    </div>
   </v-app>
 </template>
 
 <script>
+<<<<<<< HEAD
 import { upload } from './file-upload.service';
 const STATUS_INITIAL = 0, STATUS_SAVING = 1, STATUS_SUCCESS = 2, STATUS_FAILED = 3;
+=======
+>>>>>>> c13d7220562e44e273734f924d1e0b69ed76c665
 
 export default {
   /*name: 'app',
@@ -68,6 +84,7 @@ export default {
          image: false,
        },
       ],
+      welcome: false,
     }
   },*/
     name: 'app',
