@@ -50,7 +50,8 @@ class GooglePOS:
             sent[token.text.content] = {"pos":str(ind.Tag(token.part_of_speech.tag))[4:],
                                         "tense":str(ind.Tense(token.part_of_speech.tense))[6:],
                                         "person":str(ind.Person(token.part_of_speech.person))[7:],
-                                        "number":str(ind.Number(token.part_of_speech.number))[7:]}
+                                        "number":str(ind.Number(token.part_of_speech.number))[7:],
+                                        "mood": str(ind.Mood(token.part_of_speech.mood))[6:]}
 
         return sent
 
@@ -118,32 +119,34 @@ class ResumeParse:
         return incorrect_words
 
     def check_tense(self):
-        print('Checking tenses and person...')
-        # List of dictionaries  with sent_index, word_index, suggestion as keys
-        incorrect_words = []
+        print('Checking tenses...')
         pos_tagger = GooglePOS()
         tense_errors = []
-        count_tenses = {}
+        #mood_counter = {}
         for i in range(len(self.lines)):
             text = self.line_indexer[i].text
             if text != '':
-                print(text)
                 pos = pos_tagger.tag(text)
                 for word in pos:
-                    #print(pos[word]['pos'])
                     if pos[word]['pos'] == 'VERB':
-                        #print("VERB:", word, ";", "TENSE:", pos[word]['tense'])
-                        if pos[word]['tense'] == 'PAST':
-                            split_text = text.split()
-                            #print(split_text)
-                            tense_errors.append({"index":i,
-                                          "text":text,
-                                          "word_index":split_text.index(word)})
+                        '''
+                        if pos[word]['mood'] in mood_counter:
+                            mood_counter[pos[word]['mood']] += 1
+                        else:
+                          mood_counter[pos[word]['mood']] = 1
+                        '''
+                        if pos[word]['tense'] == 'PRESENT':
+                            split_text = text.replace('-', ' ').split()
+                            tense_errors.append({"sent_index":i,
+                                                  "text":text,
+                                                  "word_index":split_text.index(word)})
+        print("Tense errors:")
         print(tense_errors)
+        #print("Mood count:")
+        #print(mood_counter)
+        return tense_errors
 
-rp =  ResumeParse("testresume.docx")
-#rp.check_basic()
+rp =  ResumeParse("output.docx")
+rp.check_basic()
 #rp.check_spelling()
-#rp.check_tense()
-#google = GooglePOS()
-#pprint.pprint(google.tag("I went to the store to get food and eat"))
+rp.check_tense()
