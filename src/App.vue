@@ -3,7 +3,7 @@
   <div v-if="welcome">
 
     <!--<v-btn @click="welcome=false">Click this ho </v-btn>-->
-    <my-button type="Click here to push Meera's buttons" @click="toggleLable">{{label}}</my-button>
+    <v-btn @click="toggleLable()">{{label}}</v-btn>
 
 
   </div>
@@ -65,9 +65,9 @@
 </template>
 
 <script>
-import { upload } from './file-upload.service';
-import * as axios from 'axios';
-const STATUS_INITIAL = 0, STATUS_SAVING = 1, STATUS_SUCCESS = 2, STATUS_FAILED = 3;
+
+
+
 
 export default {
     name: 'app',
@@ -82,95 +82,26 @@ export default {
            image: false,
          },
         ],
-<<<<<<< HEAD
         welcome: true,
-=======
-        welcome: false,
         info:null,
->>>>>>> 33dea6fdab013b6cfba5ce87b8a8946e8b560421
+        label:"click here to push meera's buttons"
+
       }
     },
-    computed: {
-      isInitial() {
-        return this.currentStatus === STATUS_INITIAL;
-      },
-      isSaving() {
-        return this.currentStatus === STATUS_SAVING;
-      },
-      isSuccess() {
-        return this.currentStatus === STATUS_SUCCESS;
-      },
-      isFailed() {
-        return this.currentStatus === STATUS_FAILED;
-      }
-    },
+
     methods: {
-      toggleLable: function(e) {
-      console.log(e.target.tagName);
-      if (this.label == "Click here to push Meera's buttons") {
+      toggleLable() {
+      if (this.label == "click here to push meera's buttons") {
         this.label = "Meera's buttons are pushed, oh boi";
       } else {
-        this.label = "Click here to push Meera's buttons";
+        this.label = "click here to push meera's buttons";
       }
-      //console.log(this.label);
+
     },
-      reset() {
-        // reset form to initial state
-        this.currentStatus = STATUS_INITIAL;
-        this.uploadedFiles = [];
-        this.uploadError = null;
-      },
-      save(formData) {
-        // upload data to the server
-        this.currentStatus = STATUS_SAVING;
+    
 
-        upload(formData)
-          .then(x => {
-            this.uploadedFiles = [].concat(x);
-            this.currentStatus = STATUS_SUCCESS;
-          })
-          .catch(err => {
-            this.uploadError = err.response;
-            this.currentStatus = STATUS_FAILED;
-          });
-      },
-      filesChange(fieldName, fileList) {
-        // handle file changes
-        const formData = new FormData();
-
-        if (!fileList.length) return;
-
-        // append the files to FormData
-        Array
-          .from(Array(fileList.length).keys())
-          .map(x => {
-            formData.append(fieldName, fileList[x], fileList[x].name);
-          });
-
-        // save it
-        this.save(formData);
     },
-    onFileChange(event){
-        /*let data = new FormData();
-        let file = event.target.files[0];
 
-        data.append('name', 'my-file')
-        data.append('file', file)
-        let config = {
-          header : {
-           'Content-Type' : 'multipart/form-data'
-         }
-        }
-        upload(data)*/
-
-    }
-    },
-    mounted() {
-      this.reset();
-      axios
-          .post('/127.0.0.1:5000/uploads/data')
-          .then(response => (this.info = response))
-    }
 
 };
 
