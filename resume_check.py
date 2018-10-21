@@ -214,8 +214,8 @@ class ResumeParse:
                         else:
                           mood_counter[pos[word]['mood']] = 1
                         '''
-                        if pos[word]['tense'] == 'PAST':
-                            split_text = text.split()
+                        if pos[word]['tense'] == 'PRESENT':
+                            split_text = text.replace('-', ' ').split()
                             tense_errors.append({"sent_index":i,
                                                   "text":text,
                                                   "word_index":split_text.index(word)})
@@ -224,6 +224,7 @@ class ResumeParse:
         #print("Mood count:")
         #print(mood_counter)
         return tense_errors
+
 
     def suggested_keywords(self, job_name):
         s = Skills(job_name)
@@ -242,6 +243,7 @@ class ResumeParse:
 
 rp =  ResumeParse("testresume.docx")
 #rp.check_basic()
+
 #rp.check_spelling()
 #rp.check_tense()
 rp.suggested_keywords("mechanical engineer")

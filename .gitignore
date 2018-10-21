@@ -1,11 +1,14 @@
 DS_Store
 node_modules/
 dist/
+__pycache__/
 npm-debug.log
 yarn-error.log
 auth.py
 HackTX2018-b8e0f745cd94.json
 .~lock*
+output.docx
+
 
 # Editor directories and files
 .idea
