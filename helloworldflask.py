@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
 import sys, os
+from resume_check import ResumeParse
 
 app = Flask(__name__)
 
@@ -24,7 +25,8 @@ def read_file():
         output_file.write(POST_FILE)
         output_file.close()
         POST_FILE = None
-        file_output = None #The Tense return of the resume_checker
+        rp = ResumeParse("output.docx")
+        file_output = {"basic": rp.check_basic(), "spelling": rp.check_spelling, "tense": rp.check_tense} #The Tense return of the resume_checker
         return jsonify(file_output)
     else:
         print "Bad method:", request.method

@@ -146,7 +146,8 @@ class ResumeParse:
         #print(mood_counter)
         return tense_errors
 
-rp =  ResumeParse("output.docx")
-rp.check_basic()
-#rp.check_spelling()
-rp.check_tense()
+if __name__ == "__main__":
+    rp =  ResumeParse("output.docx")
+    rp.check_basic()
+    #rp.check_spelling()
+    rp.check_tense()
