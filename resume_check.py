@@ -1,4 +1,5 @@
 from docx import Document
+from docx.enum.text import WD_COLOR_INDEX
 import http.client, urllib.parse, json
 from google.cloud.language import enums
 from google.cloud import language
@@ -15,7 +16,7 @@ class AzureSpellChecker:
         self.path = '/bing/v7.0/spellcheck?'
         self.params = 'mkt=en-us&mode=proof'
 
-        self.headers = {'Ocp-Apim-Subscription-Key': self.key,
+        self.headers = {'Ocp-Apim-Subscription-Key': self.auth.key,
                         'Content-Type': 'application/x-www-form-urlencoded'}
 
         print("Connecting to Azure Speck Check API...")
@@ -85,7 +86,7 @@ class ResumeParse:
         print([self.line_indexer[i].text for i in incorrect_lines["periods"]])
         print([self.line_indexer[i].text for i in incorrect_lines["capitalization"]])
         print()
-        return incorrect_lines
+        return (incorrect_lines, self.line_indexer)
 
     def check_spelling(self):
         print('Checking spelling...')
@@ -146,8 +147,65 @@ class ResumeParse:
         #print(mood_counter)
         return tense_errors
 
+class Highlighter():
+    def __init__(self, filename, incorrect_lines=None, line_indexer=None, incorrect_words=None, tense_errors=None):
+        self.file = Document(filename)
+        self.incorrect_lines = incorrect_lines
+        self.line_indexer = line_indexer
+        self.incorrect_words = incorrect_words
+        self.tense_errors = tense_errors
+
+    def highlight_incorrect_periods(self):
+        paragraphs = self.file.paragraphs
+        for p in paragraphs:
+            if len(p.text) < 1:
+                continue
+            if p.text[-1] == '.':
+                font = p.runs[-1].font
+                font.highlight_color = WD_COLOR_INDEX.TEAL
+        self.file.save('output1.docx')
+
+    def highlight_incorrect_capitals(self):
+        paragraphs = self.file.paragraphs
+        for i in range(len(paragraphs)):
+            for linenum in self.incorrect_lines['capitalization']:
+                if linenum == i:
+                    letter = paragraphs[i].text[0]
+                    font = paragraphs[i].runs[paragraphs[i].text.index(letter)].font
+                    font.highlight_color = WD_COLOR_INDEX.TURQUOISE
+        self.file.save('output1.docx')
+
+    def highlight_incorrect_spellings(self):
+        paragraphs = self.file.paragraphs
+        for i in range(len(paragraphs)):
+            for pair in self.incorrect_words:
+                if pair[0] == i:
+                    for run in paragraphs[i].runs:
+                        if run.font.highlight_color == None:
+                            run.font.highlight_color = WD_COLOR_INDEX.RED
+        self.file.save('output1.docx')
+
+    def highlight_incorrect_tense(self):
+        if not self.tense_errors:
+            return
+        paragraphs = self.file.paragraphs
+        for i in range(len(paragraphs)):
+            for tense_error in self.tense_errors:
+                if tense_error['sent_index'] == i:
+                    for run in paragraphs[i].runs:
+                        if run.font.highlight_color == None:
+                            run.font.highlight_color = WD_COLOR_INDEX.YELLOW
+        self.file.save('output1.docx')
+
+
 if __name__ == "__main__":
     rp =  ResumeParse("output.docx")
-    rp.check_basic()
-    #rp.check_spelling()
-    rp.check_tense()
+    incorrect_lines, line_indexer = rp.check_basic()
+    incorrect_words = [(10, 2), (10, 3), (10, 4)]#rp.check_spelling()
+    tense_errors = None#rp.check_tense()
+
+    h = Highlighter("output.docx", incorrect_lines=incorrect_lines, line_indexer=line_indexer, incorrect_words=incorrect_words, tense_errors=tense_errors)
+    h.highlight_incorrect_periods()
+    h.highlight_incorrect_capitals()
+    h.highlight_incorrect_spellings()
+    h.highlight_incorrect_tense()
