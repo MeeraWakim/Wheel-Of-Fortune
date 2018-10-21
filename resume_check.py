@@ -141,7 +141,7 @@ class ResumeParse:
                                           "word_index":split_text.index(word)})
         print(tense_errors)
 
-rp =  ResumeParse("testresume.docx")
+rp =  ResumeParse("output.docx")
 #rp.check_basic()
 #rp.check_spelling()
 #rp.check_tense()
