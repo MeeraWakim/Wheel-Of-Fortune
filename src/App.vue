@@ -81,55 +81,13 @@ export default {
            image: false,
          },
         ],
-<<<<<<< HEAD
         welcome: true,
-=======
-        welcome: false,
-        info:null,
->>>>>>> 33dea6fdab013b6cfba5ce87b8a8946e8b560421
       }
     },
     computed: {
     },
     methods: {
-<<<<<<< HEAD
     reset(){
-=======
-      toggleLable: function(e) {
-      console.log(e.target.tagName);
-      if (this.label == "Click here to push Meera's buttons") {
-        this.label = "Meera's buttons are pushed, oh boi";
-      } else {
-        this.label = "Click here to push Meera's buttons";
-      }
-      //console.log(this.label);
-    },
-      reset() {
-        // reset form to initial state
-        this.currentStatus = STATUS_INITIAL;
-        this.uploadedFiles = [];
-        this.uploadError = null;
-      },
-      save(formData) {
-        // upload data to the server
-        this.currentStatus = STATUS_SAVING;
-
-        upload(formData)
-          .then(x => {
-            this.uploadedFiles = [].concat(x);
-            this.currentStatus = STATUS_SUCCESS;
-          })
-          .catch(err => {
-            this.uploadError = err.response;
-            this.currentStatus = STATUS_FAILED;
-          });
-      },
-      filesChange(fieldName, fileList) {
-        // handle file changes
-        const formData = new FormData();
-
-        if (!fileList.length) return;
->>>>>>> 94e54206c0fbb0d5df91dde8b7e456541342aef9
 
     },
     onFileChange(event){
