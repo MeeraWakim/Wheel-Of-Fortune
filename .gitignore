@@ -1,8 +1,11 @@
-.DS_Store
+DS_Store
 node_modules/
 dist/
 npm-debug.log
 yarn-error.log
+auth.py
+HackTX2018-b8e0f745cd94.json
+.~lock*
 
 # Editor directories and files
 .idea
@@ -10,3 +13,5 @@ yarn-error.log
 *.ntvs*
 *.njsproj
 *.sln
+__pycache__/*
+
