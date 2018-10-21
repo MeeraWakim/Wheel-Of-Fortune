@@ -1,31 +1,58 @@
-import PyPDF2
-import docx2txt
-from docx.enum.style import WD_STYLE_TYPE
 from docx import Document
 import http.client, urllib.parse, json
-
+from auth import AzureAuthInfo
+import time
+from google.cloud.language import enums
+from google.cloud import language
+from google.cloud.language import types
+import pprint
 
 class AzureSpellChecker:
     def __init__(self):
-        text = 'Hollo, wrld!'
+        self.auth = AzureAuthInfo()
 
-        data = {'text': text}
+        self.host = 'api.cognitive.microsoft.com'
+        self.path = '/bing/v7.0/spellcheck?'
+        self.params = 'mkt=en-us&mode=proof'
 
-        key = '8e73f9261d9b4b0483c08cf65c2a8d0b'
+        self.headers = {'Ocp-Apim-Subscription-Key': self.key,
+                        'Content-Type': 'application/x-www-form-urlencoded'}
 
-        host = 'api.cognitive.microsoft.com'
-        path = '/bing/v7.0/spellcheck?'
-        params = 'mkt=en-us&mode=proof'
+        print("Connecting to Azure Speck Check API...")
+        self.conn = http.client.HTTPSConnection(self.host)
 
-        headers = {'Ocp-Apim-Subscription-Key': key,
-                   'Content-Type': 'application/x-www-form-urlencoded'}
-
-        conn = http.client.HTTPSConnection(host)
+    def check_text(self, text):
+        data = {'text':text}
         body = urllib.parse.urlencode(data)
-        conn.request("POST", path + params, body, headers)
-        response = conn.getresponse().read()
-        print(response)
+        self.conn.request("POST", self.path + self.params, body, self.headers)
+        response =self.conn.getresponse().read().decode('utf-8')
+        output = json.loads(response)
+        return output['flaggedTokens']
 
+
+class GooglePOS:
+    def __init__(self):
+        # Instantiates a client
+        self.client = language.LanguageServiceClient()
+
+    def tag(self, text):
+        document = types.Document(
+            content=text,
+            type=enums.Document.Type.PLAIN_TEXT)
+
+        tokens = self.client.analyze_syntax(document).tokens
+
+        ind = enums.PartOfSpeech
+        sent = {}
+        print(tokens[0])
+        print()
+        for token in tokens:
+            sent[token.text.content] = {"pos":str(ind.Tag(token.part_of_speech.tag))[4:],
+                                        "tense":str(ind.Tense(token.part_of_speech.tense))[6:],
+                                        "person":str(ind.Person(token.part_of_speech.person))[7:],
+                                        "number":str(ind.Number(token.part_of_speech.number))[7:]}
+
+        return sent
 
 class ResumeParse:
     def __init__(self, file_name):
@@ -36,6 +63,7 @@ class ResumeParse:
 
 
     def check_basic(self):
+        print("Checking periods and capitalization...")
         incorrect_lines = {"periods":[],
                            "capitalization":[]}
         for i in range(len(self.lines)):
@@ -55,7 +83,64 @@ class ResumeParse:
         print(incorrect_lines)
         print([self.line_indexer[i].text for i in incorrect_lines["periods"]])
         print([self.line_indexer[i].text for i in incorrect_lines["capitalization"]])
-rp =  ResumeParse("testresume.docx")
-rp.check_basic()
+        print()
+        return incorrect_lines
 
-spellchecker = AzureSpellChecker()
+    def check_spelling(self):
+        print('Checking spelling...')
+        # List of dictionaries  with sent_index, word_index, suggestion as keys
+        incorrect_words = []
+        spell_checker = AzureSpellChecker()
+        for i in range(len(self.lines)):
+            text = self.line_indexer[i].text
+            if text != '':
+                flagged_tokens = spell_checker.check_text(text)
+                if flagged_tokens != []:
+                    # For each flagged token
+                    for word in flagged_tokens:
+                        # For each suggestion
+                        max_score = 0
+                        best_word = ''
+                        #print(word['suggestions'])
+                        for suggestion in word['suggestions']:
+                            #print(suggestion)
+                            if suggestion['score'] > max_score:
+                                max_score = suggestion['score']
+                                best_word = suggestion['suggestion']
+                        #orig_word = text[word['offset']:].split()[0]
+                        print(text)
+                        split_text = text.split()
+                        print(word['token'], ":", best_word)
+                        incorrect_words.append((i, split_text.index(word['token'])))
+                time.sleep(1)
+        print(incorrect_words)
+        print()
+        return incorrect_words
+
+    def check_tense(self):
+        print('Checking tenses and person...')
+        # List of dictionaries  with sent_index, word_index, suggestion as keys
+        incorrect_words = []
+        pos_tagger = GooglePOS()
+        sents = []
+        count_tenses = {}
+        for i in range(len(self.lines)):
+            text = self.line_indexer[i].text
+            if text != '':
+                pos = pos_tagger.tag(text)
+                for word in pos:
+                    if pos[word]['pos'] == 'VERB':
+                        if pos[word]['tense'] == 'TENSE_UNKNOWN':
+                            print(word.text.content)
+                        if pos[word]['tense'] in count_tenses:
+                            count_tenses[pos[word]['tense']] += 1
+                        else:
+                            count_tenses[pos[word]['tense']] = 1
+        print(count_tenses)
+
+rp =  ResumeParse("testresume.docx")
+#rp.check_basic()
+#rp.check_spelling()
+rp.check_tense()
+#google = GooglePOS()
+#pprint.pprint(google.tag("I went to the store to get food and eat"))
