@@ -73,8 +73,17 @@
         </div>
         <!--CODEPEN END-->
         <v-container grid-list-md text-xs-center>
+
             <!--RESUME UPLOAD BEGINS-->
                   <v-layout column wrap align-center>
+                  <v-autocomplete
+                  v-model="model"
+                  :items="career_fields"
+                  label="What's your career field?"
+                  outline
+                  color="green"
+                  >
+                  </v-autocomplete>
                     <v-flex x12 sm3>
                         <h3 id="element" class="display-2">Upload Your Resume Here</h3>
                     </v-flex>
@@ -100,58 +109,61 @@
     <div v-else-if="fileHasBeenUploaded">
 
       <v-layout row wrap>
-      <div>
-        
-        <v-layout justify-left column wrap>
-        <div class="text-md-left">
-        <h2>HIGHLIGHT LEGEND:</h2>
         <div>
-            <v-chip large color="indigo" text-color="white">
-            Capitalization
-                <v-icon right>keyboard_capslock</v-icon>
-            </v-chip>
-            <v-text>The first letter of every sentence should be capitalized</v-text>
-          </div>
-          
-          <div>
-            <v-chip color="green" text-color="white">
+          <v-layout justify-left column wrap>
+            <div class="text-md-left">
+            <h2>HIGHLIGHT LEGEND:</h2>
+            
+              <div>
+              <v-chip large color="indigo" text-color="white">
+              Capitalization
+              <v-icon right>keyboard_capslock</v-icon>
+              </v-chip>
+              <v-text>The first letter of every sentence should be capitalized</v-text>
+              </div>
+
+              <div>
+              <v-chip color="green" text-color="white">
               Periods
               <v-icon right>scatter_plot</v-icon>
-            </v-chip>
-            <v-text>Inconsistency amongs period use across sentences</v-text>
-          </div>
+              </v-chip>
+              <v-text>Inconsistency amongs period use across sentences</v-text>
+              </div>
 
-          <div>
-            <v-chip color="pink" text-color="white">
+              <div>
+              <v-chip color="purple" text-color="white">
               Spell Check
               <v-icon right>spellcheck</v-icon>
-            </v-chip>
-            <v-text>Microsoft Azure identified spelling errors</v-text>
-          </div>
+              </v-chip>
+              <v-text>Microsoft Azure identified spelling errors</v-text>
+              </div>
 
-          <div>
-            <v-chip color="yellow" text-color="white">
+              <div>
+              <v-chip color="yellow" text-color="white">
               Verb Tense
               <v-icon right>access_time</v-icon>
-            </v-chip>
-            <v-text>Google Cloud Natural Language present tense inconsistencies</v-text>
-          </div>
-          
+              </v-chip>
+              <v-text>Google Cloud Natural Language present tense inconsistencies</v-text>
+              </div>
+
+            </div>
+            </v-layout>
         </div>
-        <div>
-          <v-card width="30%">
-            <v-card-title>Relevant Keywords</v-card-title>
-            <v-card-text>Based on your perspective field, we've compiled some common keywords that employers in this space look for. These are not currently in your resume, so if you have any relevant experience with these topics consider adding them.</v-card-text>
+        
+        <div class="text-xs-center">
+          <v-card width="100%">
+          <h3> <strong>Relevant Keywords You May Want to Add to Your Resume</strong></h3>
+          <v-card-title> CAD, prototyping, manufacturing, drafting, consulting, project management"</v-card-title>
           </v-card>
         </div>
-
-        </v-layout>
-        </div>
+      </v-layout>
+    </div>
+        
 
 
         </v-layout>
       <pdf 
-        src="https://cdn.mozilla.net/pdfjs/tracemonkey.pdf"
+        src="https://s3-us-west-2.amazonaws.com/isabel-cachola-website/testresume.pdf"
         @num-pages="pageCount = $event"
         @page-loaded="currentPage = $event"
       ></pdf>
@@ -164,8 +176,10 @@ import { upload } from './file-upload.service';
 import pdf from 'vue-pdf'
 import * as axios from 'axios';
 
+
 export default {
     name: 'app',
+    
     components: {
       pdf
     },
@@ -178,6 +192,26 @@ export default {
         fileHasBeenUploaded: false,
         currentPage: 0,
         pageCount: 0,
+        isEditing: false,
+        model: null,
+        career_fields: [
+          'Accounting and Auditing',
+          'Advertising',
+          'Investment Banking',
+          'Computer Programmer',
+          'Computer Science',
+          'Architect',
+          'Carpenter',
+          'Construction Manager',
+          'Electrician',
+          'Surveyor',
+          'Curriculum Specialist',
+          'Chemical Engineer',
+          'Civil Engineer',
+          'Electrical Engineer',
+          'Nuclear Engineer',
+          'Fisherman',
+          'Mechanical Engineer'        ]
         
       }
     },
