@@ -1,14 +1,14 @@
 from docx import Document
 import http.client, urllib.parse, json
-from auth import AzureAuthInfo
-import time
 from google.cloud.language import enums
 from google.cloud import language
 from google.cloud.language import types
+import time
 import pprint
 
 class AzureSpellChecker:
     def __init__(self):
+        from auth import AzureAuthInfo
         self.auth = AzureAuthInfo()
 
         self.host = 'api.cognitive.microsoft.com'

@@ -26,10 +26,11 @@ def read_file():
         output_file.close()
         POST_FILE = None
         rp = ResumeParse("output.docx")
-        file_output = {"basic": rp.check_basic(), "spelling": rp.check_spelling, "tense": rp.check_tense} #The Tense return of the resume_checker
+        #file_output = {"basic": rp.check_basic(), "spelling": rp.check_spelling, "tense": rp.check_tense} #The Tense return of the resume_checker
+        file_output = {"basic": rp.check_basic(), "spelling": {}, "tense": {}}
         return jsonify(file_output)
     else:
-        print "Bad method:", request.method
+        print("Bad method:", request.method)
         return 'Bad'
 
 
