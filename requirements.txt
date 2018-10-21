@@ -1,3 +1,4 @@
 python-docx
 google-cloud-storage
 python_http_client
+google-api-python-client
