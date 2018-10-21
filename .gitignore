@@ -1,4 +1,4 @@
-.DS_Store
+DS_Store
 node_modules/
 dist/
 __pycache__/
@@ -8,6 +8,9 @@ output.docx
 output1.docx
 auth.py
 HackTX2018-b8e0f745cd94.json
+.~lock*
+
+
 
 # Editor directories and files
 .idea
@@ -15,3 +18,5 @@ HackTX2018-b8e0f745cd94.json
 *.ntvs*
 *.njsproj
 *.sln
+__pycache__/*
+
