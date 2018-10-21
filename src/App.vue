@@ -30,7 +30,7 @@
                                   <div class="file-select">
                                       <div class="file-select-button" id="fileName">Choose File</div>
                                       <div class="file-select-name" id="noFile">No file chosen...</div> 
-                                      <input type="file" name="chooseFile" id="chooseFile" accept="image/*" @change="onFileChange(item, $event), emitGlobalClickEvent()">
+                                      <input type="file" name="chooseFile" id="chooseFile" accept=".docx" @change="onFileChange(item, $event), emitGlobalClickEvent()">
                                   </div>
                                   </div>
                               </v-flex>
@@ -74,7 +74,7 @@ export default {
          image: false,
        },
       ],
-      welcome: true,
+      welcome: false,
     }
   },
 };
