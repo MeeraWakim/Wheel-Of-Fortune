@@ -4,6 +4,8 @@ import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 
 
+const VueScrollTo = require('vue-scrollto')
+Vue.use(VueScrollTo)
 Vue.use(Vuetify)
 new Vue({
   el: '#app',

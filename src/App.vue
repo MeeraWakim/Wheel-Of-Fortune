@@ -1,21 +1,16 @@
 <template>
   <v-app> 
-
-
 <!--CODEPEN START-->
 <div id="app">
     <v-app light>
-    <v-toolbar class="white">
-      <v-toolbar-title v-text="title"></v-toolbar-title>
-      <v-spacer></v-spacer>
-    </v-toolbar>
+
     <main>
       <section>
-        <v-parallax src="https://github.com/vwxyzjn/vuetify-parallax-starter2/raw/master/src/assets/background3.jpg" height="380">
+        <v-parallax src="./assets/upload_sign.png" height="380">
           <v-layout column align-center justify-center>
-            <h2 class="teal--text text--lighten-2 mb-2">Parallax Template</h2>
-            <div class="white--text headline mb-3 text-xs-center">A modern responsive front-end framework based on Material Design</div>
-            <v-btn light large class="teal lighten-2 white--text" href="https://github.com/vwxyzjn/vuetify-parallax-starter">Get Started</v-btn>
+            <h2 class="teal--text text--lighten-2 mb-2" >Welcome to Doorbell</h2>
+            <div class="white--text headline mb-3 text-xs-center">Your future is at the door.</div>
+            <v-btn light v-scroll-to="'#element'" large class="teal lighten-2 white--text" href="https://github.com/vwxyzjn/vuetify-parallax-starter">Get Started</v-btn>
           </v-layout>
         </v-parallax>
 
@@ -83,19 +78,10 @@
           </v-layout>
         </v-parallax>
       </section>
-
-
-
-
-
     </main>
   </v-app>
 </div>
 <!--CODEPEN END-->
-
-
-
-
 
     <!--<div class="containerr">
       <img
@@ -111,55 +97,42 @@
   </div>
 
   <div v-else-if="!welcome">
-
      <v-container grid-list-md text-xs-center>
-            
-                
-                    
-                      <!--RESUME UPLOAD BEGINS-->
-                      <div v-for="item in items">
-                          <div v-if="!item.image">
-                            <v-layout column wrap align-center>
-                              <v-flex x12 sm3>
-                                  <h3 class="display-2">Upload Your Resume Here</h3>
-                              </v-flex>
-                              <v-flex x12 sm3>
-                                  <img id="upload" src="./assets/upload_sign.png" />
-                              </v-flex>
-                              <v-flex x12 sm3>
-                                  <div class="file-upload">
-                                  <div class="file-select">
-                                    <div class="file-select-button" id="fileName">Choose File</div>
-                                    <div class="file-select-name" id="noFile">No file chosen...</div>                                   
-                                      <input type="file" name="chooseFile" id="chooseFile" accept=".docx" @change="onFileChange($event), fileUploaded(item, $event)">
-                                  </div>
-                                  </div>
-                              </v-flex>
-                            </v-layout>
-                          </div>
+            <!--RESUME UPLOAD BEGINS-->
+            <div v-for="item in items">
+                <div v-if="!item.image">
+                  <v-layout column wrap align-center>
+                    <v-flex x12 sm3>
+                        <h3 id="element" class="display-2">Upload Your Resume Here</h3>
+                    </v-flex>
+                    <v-flex x12 sm3>
+                        <img id="upload" src="./assets/upload_sign.png" />
+                    </v-flex>
+                    <v-flex x12 sm3>
+                        <div class="file-upload">
+                        <div class="file-select">
+                          <div class="file-select-button" id="fileName">Choose File</div>
+                          <div class="file-select-name" id="noFile">No file chosen...</div>                                   
+                            <input type="file" name="chooseFile" id="chooseFile" accept=".docx" @change="onFileChange($event), fileUploaded(item, $event)">
+                        </div>
+                        </div>
+                    </v-flex>
+                  </v-layout>
+                </div>
 
-                          <div v-else>
-                            <v-layout column>
-                                <v-flex x12 sm3>
-                                <img id="displayedPic" :src="item.image" />
-                                </v-flex>
-                                <v-flex x12 sm3>
-                                <v-btn color="primary" @click="removeImage(item),emitGlobalClickEvent()">Choose Another Image</v-btn>
-                                </v-flex>
-                            </v-layout>
-                          </div>
-                      </div>
-                      
-                      <!--RESUME UPLOAD ENDS-->
-                    
-                
+                <div v-else>
+                  <v-layout column>
+                      <v-flex x12 sm3>
+                      <img id="displayedPic" :src="item.image" />
+                      </v-flex>
+                      <v-flex x12 sm3>
+                      <v-btn color="primary" @click="removeImage(item),emitGlobalClickEvent()">Choose Another Image</v-btn>
+                      </v-flex>
+                  </v-layout>
+                </div>
+            </div>                      
+            <!--RESUME UPLOAD ENDS-->
 
-                <v-flex xs6>
-                    <v-card>
-
-                    </v-card>
-                </v-flex xs6>
-            
         </v-container>
     </div>
     </body>
