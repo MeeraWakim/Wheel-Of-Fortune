@@ -1,15 +1,20 @@
 <template>
-  <v-app>
+  <v-app> 
+    <div class="containerr">
+      <img
+        src="./landscape.jpg"
+        style = "width:100%"
+      ></img>
+    </div>
+    <h1 class="display-4">Welcome to Doorbell </h1>
+    <img class="imageoverlay" align-center src="./assets/Doorbell.png"/>
+
   <div v-if="welcome">
-
     <!--<v-btn @click="welcome=false">Click this ho </v-btn>-->
-    <my-button type="Click here to push Meera's buttons" @click="toggleLable">{{label}}</my-button>
-
-
   </div>
 
   <div v-else-if="!welcome">
-    <v-toolbar> hello </v-toolbar>
+     <v-btn @click="toggleLable()">{{label}}</v-btn>
      <v-container grid-list-md text-xs-center>
             <v-layout row wrap>
                 <v-flex xs12>
@@ -61,6 +66,7 @@
             </v-layout>
         </v-container>
     </div>
+    </body>
   </v-app>
 </template>
 
@@ -85,7 +91,13 @@ export default {
       }
     },
     computed: {
+        welcome: false,
+        info:null,
+        label:"click here to push meera's buttons"
+
+      }
     },
+
     methods: {
     reset(){
 
@@ -106,10 +118,33 @@ export default {
     }
     },
 
+      toggleLable() {
+      if (this.label == "click here to push meera's buttons") {
+        this.label = "Meera's buttons are pushed, oh boi";
+      } else {
+        this.label = "click here to push meera's buttons";
+      }
+    },
+    },
 };
 
 </script>
 
 <style>
-
+.containerr {
+  position: relative;
+  text-align: center;
+  
+}
+.display-4 {
+  position: absolute;
+  top: 15%;
+  left:15%;
+}
+.imageoverlay {
+  position: absolute;
+  height: 200px;
+  top:25%;
+  left:39%;
+}
 </style>
