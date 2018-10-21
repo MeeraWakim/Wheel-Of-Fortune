@@ -14,6 +14,7 @@
             <v-layout row wrap>
                 <v-flex xs12>
                   <p>hello</p>
+                  {{info}}
                 </v-flex>
                 <v-flex xs6>
                     <v-card>
@@ -30,9 +31,7 @@
                               <v-flex x12 sm3>
                                   <div class="file-upload">
                                   <div class="file-select">
-                                      <div class="file-select-button" id="fileName">Choose File</div>
-                                      <div class="file-select-name" id="noFile">No file chosen...</div>
-                                      <input type="file" name="chooseFile" id="chooseFile" accept=".docx" @change="onFileChange(item, $event), emitGlobalClickEvent()">
+                                      <input type="file" name="chooseFile" id="chooseFile" accept=".docx" @change="onFileChange($event)">
                                   </div>
                                   </div>
                               </v-flex>
@@ -67,6 +66,7 @@
 
 <script>
 import { upload } from './file-upload.service';
+import * as axios from 'axios';
 const STATUS_INITIAL = 0, STATUS_SAVING = 1, STATUS_SUCCESS = 2, STATUS_FAILED = 3;
 
 export default {
@@ -82,7 +82,12 @@ export default {
            image: false,
          },
         ],
+<<<<<<< HEAD
         welcome: true,
+=======
+        welcome: false,
+        info:null,
+>>>>>>> 33dea6fdab013b6cfba5ce87b8a8946e8b560421
       }
     },
     computed: {
@@ -144,11 +149,29 @@ export default {
 
         // save it
         this.save(formData);
-      }
+    },
+    onFileChange(event){
+        /*let data = new FormData();
+        let file = event.target.files[0];
+
+        data.append('name', 'my-file')
+        data.append('file', file)
+        let config = {
+          header : {
+           'Content-Type' : 'multipart/form-data'
+         }
+        }
+        upload(data)*/
+
+    }
     },
     mounted() {
       this.reset();
-    },
+      axios
+          .post('/127.0.0.1:5000/uploads/data')
+          .then(response => (this.info = response))
+    }
+
 };
 
 </script>
