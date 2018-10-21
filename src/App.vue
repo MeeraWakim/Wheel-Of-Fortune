@@ -10,11 +10,7 @@
     <img class="imageoverlay" align-center src="./assets/Doorbell.png"/>
 
   <div v-if="welcome">
-
     <!--<v-btn @click="welcome=false">Click this ho </v-btn>-->
-   
-    
-
   </div>
 
   <div v-else-if="!welcome">
