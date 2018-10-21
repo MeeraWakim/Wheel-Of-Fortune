@@ -2,14 +2,13 @@
   <v-app> 
 <!--CODEPEN START-->
 <div id="app">
-    <v-app light>
-
+    <v-app >
     <main>
       <section>
-        <v-parallax src="./assets/upload_sign.png" height="380">
+        <v-parallax src="https://raw.githubusercontent.com/vwxyzjn/vuetify-parallax-starter2/master/src/assets/background3.jpg" height="380">
           <v-layout column align-center justify-center>
-            <h2 class="teal--text text--lighten-2 mb-2" >Welcome to Doorbell</h2>
-            <div class="white--text headline mb-3 text-xs-center">Your future is at the door.</div>
+            <h2 id="title1" class="display-3"> <strong>Welcome to Doorbell</strong></h2>
+            <div id="title1" class="display-1">Your future is at the door.</div>
             <v-btn light v-scroll-to="'#element'" large class="teal lighten-2 white--text" href="https://github.com/vwxyzjn/vuetify-parallax-starter">Get Started</v-btn>
           </v-layout>
         </v-parallax>
@@ -17,7 +16,7 @@
         <div id="content">
           <v-layout row wrap class="my-5" >
             <v-flex xs12 sm4>
-              <v-card class="elevation-0">
+              <v-card color= "rgba(255, 0, 0, 0)" class="elevation-0">
                 <v-card-media height="45px" class="text-xs-center">
                   <v-icon x-large class="brown--text">flash_on</v-icon>
                 </v-card-media>
@@ -34,7 +33,7 @@
             </v-flex>
 
             <v-flex xs12 sm4>
-              <v-card class="elevation-0">
+              <v-card color= "rgba(255, 0, 0, 0)" class="elevation-0">
                 <v-card-media height="45px" class="text-xs-center">
                   <v-icon x-large class="brown--text">group</v-icon>
                 </v-card-media>
@@ -52,7 +51,7 @@
             </v-flex>
 
             <v-flex xs12 sm4>
-              <v-card class="elevation-0">
+              <v-card color= "rgba(255, 0, 0, 0)" class="elevation-0">
                 <v-card-media height="45px" class="text-xs-center">
                   <v-icon x-large class="brown--text">settings</v-icon>
                 </v-card-media>
@@ -72,9 +71,9 @@
       </section>
 
       <section>
-        <v-parallax src="https://github.com/vwxyzjn/vuetify-parallax-starter2/raw/master/src/assets/background2.jpg" height="380">
+        <v-parallax src="http://360gigapixels.com/assets/images/nyc_side_thumb.png" height="380">
           <v-layout column align-center justify-center>
-            <div class="headline white--text text-xs-center">A modern responsive front-end framework based on Material Design</div>
+            
           </v-layout>
         </v-parallax>
       </section>
@@ -268,5 +267,11 @@ footer {
 }
 a {
   color: #fff;
+
+}
+#title1 {
+    color: rgb(
+250,108,122);
+
 }
 </style>
