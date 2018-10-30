@@ -159,14 +159,10 @@
       </v-layout>
     </div>
         
-
-
-        </v-layout>
-      <pdf 
-        src="https://s3-us-west-2.amazonaws.com/isabel-cachola-website/testresume.pdf"
-        @num-pages="pageCount = $event"
-        @page-loaded="currentPage = $event"
-      ></pdf>
+      </v-layout>
+      <div v-if="fileHasBeenUploaded">
+      <v-img src ="../resume_example.jpg"></v-img>
+      </div>
     </div>
   </v-app>
 </template>
