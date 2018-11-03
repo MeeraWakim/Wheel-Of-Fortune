@@ -14,7 +14,7 @@
     
     <!--Footer-->
     <v-footer app fixed>
-      <span class="light-green darken-3">A Summer Knight Project</span>
+      <span color="accent">A Summer Knight Project</span>
     </v-footer>
   </v-app>
 </template>
