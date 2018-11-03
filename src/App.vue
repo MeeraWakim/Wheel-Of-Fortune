@@ -8,6 +8,11 @@
     <!-- Main container -->
     <v-container fluid fill-height>
       <v-layout justify-center align-center>
+        <div>
+          <v-btn depressed small color="secondary">
+            Spin the ring!
+          </v-btn>
+        </div>
       <!--Stuff goes in here (Wheel)-->
       </v-layout>
     </v-container>
