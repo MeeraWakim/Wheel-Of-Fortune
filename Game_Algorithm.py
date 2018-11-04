@@ -22,7 +22,7 @@ class player:
 			value = wheel_dict[5]
 		elif num <= 275:  # 251 - 275
 			value = wheel_dict[10]
-		elif num <= 280:  # 275 - 280
+		elif num <= 280:  # 276 - 280
 			value = wheel_dict[100]
 		else:  # 281
 			value = wheel_dict[1000]
@@ -139,7 +139,7 @@ def main():  # Main program
 							if gameNum != num_phrases - 1:  # If it isn't the last phrase
 								print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")
 							notGuessed = False
-							correct = False
+							correct = False  # Really means to quit asking the user for letters
 						else:  # If there are still letters to be guessed
 							print("Correct! Your now have $" + str(players[turn].score) + ". Spin again.")
 							dummy = input(" ~ Press Enter to spin the wheel ~ \n")
