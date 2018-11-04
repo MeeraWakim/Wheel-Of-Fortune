@@ -31,14 +31,19 @@ class player:
 def showWord(phrase,guessed):  # Displays the phrase with the letters that haven't been guessed yet removed
 
 	print("Word: ")
+	guessedPhrase = ""
 	for i in range(len(phrase)):
 		if phrase[i].lower() not in guessed and phrase[i].upper() not in guessed:  # If the guessed letters are not in the list containing the list of correctly guessed letters
 			if phrase[i] == " ":  # Whitespace
 				print("  ",end = " ")
+				guessedPhrase += " "
 			else:
 				print("__", end = " ")
+				guessedPhrase += " __ "
 		else:
 			print(phrase[i], end = " ")  # Print the letter from the original phrase
+			guessedPhrase += phrase[i]
+	return guessedPhrase
 
 def main():  # Main program
 
