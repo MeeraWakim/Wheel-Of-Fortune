@@ -12,7 +12,7 @@
           <v-btn
             depressed
             large
-            color="secondary"
+            color="accent"
             @click="onClick()">
             Spin the ring!
           </v-btn>
@@ -23,7 +23,7 @@
     
     <!--Footer-->
     <v-footer app fixed>
-      <span color="accent">A Summer Knight Project</span>
+      <span color="secondary">A Summer Knight Project</span>
     </v-footer>
   </v-app>
 </template>
