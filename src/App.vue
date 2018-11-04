@@ -1,8 +1,8 @@
 <template>
   <v-app dark>
     <!-- Toolbar -->
-    <v-toolbar dark color="primary">
-      <v-toolbar-title>Ring of Fortune</v-toolbar-title>
+    <v-toolbar dark color="primary" extended>
+       <img align-center id="logo" src="../Gearofluck.png/"/>
     </v-toolbar>
 
     <!-- Main container -->
