@@ -9,7 +9,11 @@
     <v-container fluid fill-height>
       <v-layout justify-center align-center>
         <div>
-          <v-btn depressed small color="secondary">
+          <v-btn
+            depressed
+            large
+            color="secondary"
+            @click="onClick()">
             Spin the ring!
           </v-btn>
         </div>
@@ -26,6 +30,7 @@
 
 <script>
 import * as axios from 'axios';
+import { upload } from './file-upload.service';
 
 export default {
     name: 'app',
@@ -33,19 +38,19 @@ export default {
     components: {
       
     },
+
     data() {
       return {
-        
-        
+        flaskdata: 'HelloWorld',
       }
     },
 
-
     methods: {
-
+      onClick(){
+        upload(flaskdata)
+      },
     },
 
-    
 };
 
 </script>
