@@ -1,8 +1,13 @@
 <template>
   <v-app dark>
-    <!-- Toolbar -->
-    <v-toolbar dark color="primary" extended>
-       <img align-center id="logo" src="../Gearofluck.png/"/>
+    <!-- Toolbar/Logo -->
+    <v-toolbar dark color="primary" height="110">
+        <img align="middle" 
+             id="logo" 
+             src="../Gearofluck.png" 
+             height="90"
+             width="150"
+             >
     </v-toolbar>
 
     <!-- Main container -->
@@ -10,11 +15,12 @@
       <v-layout justify-center align-center>
         <div>
           <v-btn
+            align="bottom"
             depressed
             large
             color="accent"
             @click="onClick()">
-            Spin the ring!
+            Spin the Gear!
           </v-btn>
         </div>
       <!--Stuff goes in here (Wheel)-->
