@@ -41,7 +41,7 @@ export default {
 
     data() {
       return {
-        flaskdata: 'HelloWorld',
+        flaskdata: 'HelloBitches',
       }
     },
 
