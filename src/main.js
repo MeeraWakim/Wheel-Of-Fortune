@@ -9,9 +9,9 @@ const VueScrollTo = require('vue-scrollto')
 Vue.use(VueScrollTo)
 Vue.use(Vuetify, {
   theme: {
-    "primary": "#455a64",
+    "primary": "#8c7d70",
     "secondary": "#5e35b1",
-    "accent": "#aa00ff",
+    "accent": "#d7a63d",
     "error": "#c62828",
     "info": "#78909c",
     "success": "#4caf50",
