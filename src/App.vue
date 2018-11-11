@@ -36,7 +36,6 @@
 
 <script>
 import * as axios from 'axios';
-import { upload } from './file-upload.service';
 
 export default {
     name: 'app',
@@ -50,15 +49,16 @@ export default {
         flaskdata: 'HelloBitches',
       }
     },
-
-    methods: {
-      onClick(){
-        upload(flaskdata)
-      },
+    methods: {    onClick(){
+      console.log("FUNCTION RAN");
+      axios.post('http://127.0.0.1:5000/uploads/data',{body: this.flaskdata})
+    .then(response => {})
+    .catch(e => {
+      this.errors.push(e)
+    })
     },
-
+    },
 };
-
 </script>
 
 <style>
