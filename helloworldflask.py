@@ -7,4 +7,9 @@ CORS(app)
 @app.route('/uploads/data',methods=['GET','POST'])
 
 def helowurld():
-        return (request.method)
+        global POSTEDSTRING
+        if request.method == "POST":
+                POSTEDSTRING = request.form['username']
+                return (POSTEDSTRING)
+        else:
+                return ("BAD")

@@ -51,7 +51,7 @@ export default {
     },
     methods: {    onClick(){
       console.log("FUNCTION RAN");
-      axios.post('http://127.0.0.1:5000/uploads/data',{body: this.flaskdata})
+      axios.post('http://127.0.0.1:5000/uploads/data', {'username': this.flaskdata})
     .then(response => {})
     .catch(e => {
       this.errors.push(e)
