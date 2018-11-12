@@ -101,6 +101,7 @@ def trivia(players, triviaQs, randomTriviaIndices, value, turn, phrase, guessed)
 					guess = input("You didn't type in a single letter. Please try again: ")
 			else:
 				guess = input("You didn't type in a letter. Please try again: ")
+		correct = True
 	else:
 		print("Incorrect! The correct answer was " + triviaQs[randomTriviaIndices[triviaIndex]][5].upper() + ".")
 		print("----------------------------------------------------------------------------------------")
